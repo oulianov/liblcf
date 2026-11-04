@@ -87,6 +87,9 @@ void XmlWriter::WriteString(std::string_view val) {
 				stream.put(c);
 				break;
 			case '\r':
+				// a literal CR is read back as LF (XML end-of-line handling)
+				stream << "&#13;";
+				break;
 			case '\t':
 				stream.put(c);
 				break;
