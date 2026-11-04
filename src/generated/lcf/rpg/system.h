@@ -13,6 +13,7 @@
 #define LCF_RPG_SYSTEM_H
 
 // Headers
+#include <array>
 #include <stdint.h>
 #include <vector>
 #include "lcf/dbstring.h"
@@ -234,6 +235,56 @@ namespace rpg {
 		DBString frame_name;
 		bool invert_animations = false;
 		bool show_title = true;
+		int32_t maniac_title_scene_common_event_id = 0;
+		int32_t maniac_title_scene_variable_id = 0;
+		struct ManiacTitleSceneHook_Flags {
+			union {
+				struct {
+					bool initialize;
+					bool create_picture;
+					bool begin_scene;
+					bool end_scene;
+					bool every_frame;
+					bool selection_changed;
+					bool new_game;
+				};
+				std::array<bool, 7> flags;
+			};
+			ManiacTitleSceneHook_Flags() noexcept: initialize(false), create_picture(false), begin_scene(false), end_scene(false), every_frame(false), selection_changed(false), new_game(false)
+			{}
+		} maniac_title_scene_hook_flags;
+		int32_t maniac_save_scene_common_event_id = 0;
+		int32_t maniac_save_scene_variable_id = 0;
+		struct ManiacSaveSceneHook_Flags {
+			union {
+				struct {
+					bool initialize;
+					bool create_picture;
+					bool begin_scene;
+					bool end_scene;
+					bool every_frame;
+					bool selection_changed;
+					bool new_game;
+				};
+				std::array<bool, 7> flags;
+			};
+			ManiacSaveSceneHook_Flags() noexcept: initialize(false), create_picture(false), begin_scene(false), end_scene(false), every_frame(false), selection_changed(false), new_game(false)
+			{}
+		} maniac_save_scene_hook_flags;
+		DBString maniac_message_font_name;
+		int32_t maniac_message_font_size = 12;
+		int32_t maniac_message_window_width = 320;
+		int32_t maniac_message_window_height = 80;
+		int32_t maniac_message_spacing_char = 0;
+		int32_t maniac_message_spacing_line = 4;
+		int32_t maniac_message_face_x = 16;
+		int32_t maniac_message_face_y = 16;
+		int32_t maniac_message_text_x = 8;
+		int32_t maniac_message_text_y = 10;
+		int32_t maniac_message_text_face_x = 80;
+		int32_t maniac_message_text_face_y = 10;
+		int32_t maniac_message_face_width = 48;
+		int32_t maniac_message_face_height = 48;
 		int32_t easyrpg_alternative_exp = 0;
 		std::vector<int16_t> easyrpg_battle_options = {0, 1, 2};
 		int32_t easyrpg_max_actor_hp = -1;
@@ -285,6 +336,26 @@ namespace rpg {
 		os << static_cast<std::underlying_type_t<decltype(code)>>(code);
 		return os;
 	}
+
+	inline bool operator==(const System::ManiacTitleSceneHook_Flags& l, const System::ManiacTitleSceneHook_Flags& r) {
+		return l.flags == r.flags;
+	}
+
+	inline bool operator!=(const System::ManiacTitleSceneHook_Flags& l, const System::ManiacTitleSceneHook_Flags& r) {
+		return !(l == r);
+	}
+
+	std::ostream& operator<<(std::ostream& os, const System::ManiacTitleSceneHook_Flags& obj);
+
+	inline bool operator==(const System::ManiacSaveSceneHook_Flags& l, const System::ManiacSaveSceneHook_Flags& r) {
+		return l.flags == r.flags;
+	}
+
+	inline bool operator!=(const System::ManiacSaveSceneHook_Flags& l, const System::ManiacSaveSceneHook_Flags& r) {
+		return !(l == r);
+	}
+
+	std::ostream& operator<<(std::ostream& os, const System::ManiacSaveSceneHook_Flags& obj);
 
 	inline bool operator==(const System& l, const System& r) {
 		return l.ldb_id == r.ldb_id
@@ -342,6 +413,26 @@ namespace rpg {
 		&& l.frame_name == r.frame_name
 		&& l.invert_animations == r.invert_animations
 		&& l.show_title == r.show_title
+		&& l.maniac_title_scene_common_event_id == r.maniac_title_scene_common_event_id
+		&& l.maniac_title_scene_variable_id == r.maniac_title_scene_variable_id
+		&& l.maniac_title_scene_hook_flags == r.maniac_title_scene_hook_flags
+		&& l.maniac_save_scene_common_event_id == r.maniac_save_scene_common_event_id
+		&& l.maniac_save_scene_variable_id == r.maniac_save_scene_variable_id
+		&& l.maniac_save_scene_hook_flags == r.maniac_save_scene_hook_flags
+		&& l.maniac_message_font_name == r.maniac_message_font_name
+		&& l.maniac_message_font_size == r.maniac_message_font_size
+		&& l.maniac_message_window_width == r.maniac_message_window_width
+		&& l.maniac_message_window_height == r.maniac_message_window_height
+		&& l.maniac_message_spacing_char == r.maniac_message_spacing_char
+		&& l.maniac_message_spacing_line == r.maniac_message_spacing_line
+		&& l.maniac_message_face_x == r.maniac_message_face_x
+		&& l.maniac_message_face_y == r.maniac_message_face_y
+		&& l.maniac_message_text_x == r.maniac_message_text_x
+		&& l.maniac_message_text_y == r.maniac_message_text_y
+		&& l.maniac_message_text_face_x == r.maniac_message_text_face_x
+		&& l.maniac_message_text_face_y == r.maniac_message_text_face_y
+		&& l.maniac_message_face_width == r.maniac_message_face_width
+		&& l.maniac_message_face_height == r.maniac_message_face_height
 		&& l.easyrpg_alternative_exp == r.easyrpg_alternative_exp
 		&& l.easyrpg_battle_options == r.easyrpg_battle_options
 		&& l.easyrpg_max_actor_hp == r.easyrpg_max_actor_hp
@@ -435,6 +526,8 @@ namespace rpg {
 		}
 		const auto ctx53 = Context<System, ParentCtx>{ "frame_name", -1, &obj, parent_ctx };
 		f(obj.frame_name, ctx53);
+		const auto ctx62 = Context<System, ParentCtx>{ "maniac_message_font_name", -1, &obj, parent_ctx };
+		f(obj.maniac_message_font_name, ctx62);
 		(void)obj;
 		(void)f;
 		(void)parent_ctx;

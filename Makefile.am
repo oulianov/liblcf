@@ -102,6 +102,8 @@ liblcf_la_SOURCES = \
 	src/generated/ldb_stringvariable.cpp \
 	src/generated/ldb_switch.cpp \
 	src/generated/ldb_system.cpp \
+	src/generated/ldb_system_maniac_save_scene_hook_flags.h \
+	src/generated/ldb_system_maniac_title_scene_hook_flags.h \
 	src/generated/ldb_terms.cpp \
 	src/generated/ldb_terrain.cpp \
 	src/generated/ldb_terrain_special_flags.h \

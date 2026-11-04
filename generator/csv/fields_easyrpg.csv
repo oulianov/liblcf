@@ -137,6 +137,26 @@ Terms,easyrpg_battle2k3_escape,f,DBString,0xD8,DBString(kDefaultTerm),0,1,RPG Ma
 Terms,easyrpg_battle2k3_special_combat_back,f,DBString,0xD9,,0,1,Message for back and pincer attack
 Terms,easyrpg_battle2k3_skill,f,DBString,0xDA,DBString(kDefaultTerm),0,1,RPG Maker 2003 battle general skill start notification
 Terms,easyrpg_battle2k3_item,f,DBString,0xDB,DBString(kDefaultTerm),0,1,RPG Maker 2003 battle general item start notification
+System,maniac_title_scene_common_event_id,f,Ref<CommonEvent>,0x79,0,0,0,Common event called by the title scene (0: none)
+System,maniac_title_scene_variable_id,f,Ref<Variable>,0x7A,0,0,0,Variable (start of range) the title scene writes its state to before calling the common event
+System,maniac_title_scene_hook_flags,f,ManiacTitleSceneHook_Flags,0x7B,0,0,0,When the title scene calls the common event
+System,maniac_save_scene_common_event_id,f,Ref<CommonEvent>,0x7C,0,0,0,Common event called by the save/load scene (0: none)
+System,maniac_save_scene_variable_id,f,Ref<Variable>,0x7D,0,0,0,Variable (start of range) the save/load scene writes its state to before calling the common event
+System,maniac_save_scene_hook_flags,f,ManiacSaveSceneHook_Flags,0x7E,0,0,0,When the save/load scene calls the common event
+System,maniac_message_font_name,f,DBString,0x80,,0,0,Font of the message window (empty: the system font)
+System,maniac_message_font_size,f,Int32,0x81,12,0,0,Font size of the message window
+System,maniac_message_window_width,f,Int32,0x82,320,0,0,Width of the message window in pixels (<= 0: 320)
+System,maniac_message_window_height,f,Int32,0x83,80,0,0,Height of the message window in pixels (<= 0: computed from the text position and the line height)
+System,maniac_message_spacing_char,f,Int32,0x84,0,0,0,Additional spacing between characters in the message window
+System,maniac_message_spacing_line,f,Int32,0x85,4,0,0,Additional spacing between lines in the message window (line height: font size + this)
+System,maniac_message_face_x,f,Int32,0x86,16,0,0,X position of the face graphic in the message window
+System,maniac_message_face_y,f,Int32,0x87,16,0,0,Y position of the face graphic in the message window
+System,maniac_message_text_x,f,Int32,0x88,8,0,0,X position of the text without a face graphic
+System,maniac_message_text_y,f,Int32,0x89,10,0,0,Y position of the text without a face graphic
+System,maniac_message_text_face_x,f,Int32,0x8A,80,0,0,X position of the text with a face graphic (< 0: face width + 2 * face x)
+System,maniac_message_text_face_y,f,Int32,0x8B,10,0,0,Y position of the text with a face graphic
+System,maniac_message_face_width,f,Int32,0x8C,48,0,0,Width of the face graphic in pixels
+System,maniac_message_face_height,f,Int32,0x8D,48,0,0,Height of the face graphic in pixels
 System,easyrpg_alternative_exp,f,Int32,0xC8,0,0,0,Which EXP formula to use: 0=Default 1=2k 2=2k3
 System,easyrpg_battle_options,f,Vector<Int16>,0xC9,"[0,1,2]",0,0,Available battle options where 0=Battle 1=AutoBattle 2=Escape 3=Win 4=Lose
 System,easyrpg_max_actor_hp,f,Int32,0xCA,-1,0,0,Absolute maximum HP value actors can have

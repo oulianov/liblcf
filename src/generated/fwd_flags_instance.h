@@ -11,6 +11,8 @@
 
 #include "ldb_trooppagecondition_flags.h"
 #include "ldb_terrain_special_flags.h"
+#include "ldb_system_maniac_title_scene_hook_flags.h"
+#include "ldb_system_maniac_save_scene_hook_flags.h"
 #include "lmu_eventpagecondition_flags.h"
 #include "lsd_savesystem_maniac_message_hook_flags.h"
 #include "lsd_savepicture_flags.h"
@@ -23,6 +25,8 @@
 namespace lcf {
 template class Flags<rpg::TroopPageCondition::Flags>;
 template class Flags<rpg::Terrain::Flags>;
+template class Flags<rpg::System::ManiacTitleSceneHook_Flags>;
+template class Flags<rpg::System::ManiacSaveSceneHook_Flags>;
 template class Flags<rpg::EventPageCondition::Flags>;
 template class Flags<rpg::SaveSystem::ManiacMessageHook_Flags>;
 template class Flags<rpg::SavePicture::Flags>;

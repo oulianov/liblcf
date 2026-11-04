@@ -15,6 +15,22 @@
 namespace lcf {
 namespace rpg {
 
+std::ostream& operator<<(std::ostream& os, const System::ManiacTitleSceneHook_Flags& obj) {
+	for (size_t i = 0; i < obj.flags.size(); ++i) {
+		os << (i == 0 ? "[" : ", ") << obj.flags[i];
+	}
+	os << "]";
+	return os;
+}
+
+std::ostream& operator<<(std::ostream& os, const System::ManiacSaveSceneHook_Flags& obj) {
+	for (size_t i = 0; i < obj.flags.size(); ++i) {
+		os << (i == 0 ? "[" : ", ") << obj.flags[i];
+	}
+	os << "]";
+	return os;
+}
+
 std::ostream& operator<<(std::ostream& os, const System& obj) {
 	os << "System{";
 	os << "ldb_id="<< obj.ldb_id;
@@ -84,6 +100,26 @@ std::ostream& operator<<(std::ostream& os, const System& obj) {
 	os << ", frame_name="<< obj.frame_name;
 	os << ", invert_animations="<< obj.invert_animations;
 	os << ", show_title="<< obj.show_title;
+	os << ", maniac_title_scene_common_event_id="<< obj.maniac_title_scene_common_event_id;
+	os << ", maniac_title_scene_variable_id="<< obj.maniac_title_scene_variable_id;
+	os << ", maniac_title_scene_hook_flags="<< obj.maniac_title_scene_hook_flags;
+	os << ", maniac_save_scene_common_event_id="<< obj.maniac_save_scene_common_event_id;
+	os << ", maniac_save_scene_variable_id="<< obj.maniac_save_scene_variable_id;
+	os << ", maniac_save_scene_hook_flags="<< obj.maniac_save_scene_hook_flags;
+	os << ", maniac_message_font_name="<< obj.maniac_message_font_name;
+	os << ", maniac_message_font_size="<< obj.maniac_message_font_size;
+	os << ", maniac_message_window_width="<< obj.maniac_message_window_width;
+	os << ", maniac_message_window_height="<< obj.maniac_message_window_height;
+	os << ", maniac_message_spacing_char="<< obj.maniac_message_spacing_char;
+	os << ", maniac_message_spacing_line="<< obj.maniac_message_spacing_line;
+	os << ", maniac_message_face_x="<< obj.maniac_message_face_x;
+	os << ", maniac_message_face_y="<< obj.maniac_message_face_y;
+	os << ", maniac_message_text_x="<< obj.maniac_message_text_x;
+	os << ", maniac_message_text_y="<< obj.maniac_message_text_y;
+	os << ", maniac_message_text_face_x="<< obj.maniac_message_text_face_x;
+	os << ", maniac_message_text_face_y="<< obj.maniac_message_text_face_y;
+	os << ", maniac_message_face_width="<< obj.maniac_message_face_width;
+	os << ", maniac_message_face_height="<< obj.maniac_message_face_height;
 	os << ", easyrpg_alternative_exp="<< obj.easyrpg_alternative_exp;
 	os << ", easyrpg_battle_options=";
 	for (size_t i = 0; i < obj.easyrpg_battle_options.size(); ++i) {

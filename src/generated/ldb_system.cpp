@@ -417,6 +417,146 @@ static TypedField<rpg::System, bool> static_show_title(
 	0,
 	1
 );
+static TypedField<rpg::System, int32_t> static_maniac_title_scene_common_event_id(
+	&rpg::System::maniac_title_scene_common_event_id,
+	LDB_Reader::ChunkSystem::maniac_title_scene_common_event_id,
+	"maniac_title_scene_common_event_id",
+	0,
+	0
+);
+static TypedField<rpg::System, int32_t> static_maniac_title_scene_variable_id(
+	&rpg::System::maniac_title_scene_variable_id,
+	LDB_Reader::ChunkSystem::maniac_title_scene_variable_id,
+	"maniac_title_scene_variable_id",
+	0,
+	0
+);
+static TypedField<rpg::System, rpg::System::ManiacTitleSceneHook_Flags> static_maniac_title_scene_hook_flags(
+	&rpg::System::maniac_title_scene_hook_flags,
+	LDB_Reader::ChunkSystem::maniac_title_scene_hook_flags,
+	"maniac_title_scene_hook_flags",
+	0,
+	0
+);
+static TypedField<rpg::System, int32_t> static_maniac_save_scene_common_event_id(
+	&rpg::System::maniac_save_scene_common_event_id,
+	LDB_Reader::ChunkSystem::maniac_save_scene_common_event_id,
+	"maniac_save_scene_common_event_id",
+	0,
+	0
+);
+static TypedField<rpg::System, int32_t> static_maniac_save_scene_variable_id(
+	&rpg::System::maniac_save_scene_variable_id,
+	LDB_Reader::ChunkSystem::maniac_save_scene_variable_id,
+	"maniac_save_scene_variable_id",
+	0,
+	0
+);
+static TypedField<rpg::System, rpg::System::ManiacSaveSceneHook_Flags> static_maniac_save_scene_hook_flags(
+	&rpg::System::maniac_save_scene_hook_flags,
+	LDB_Reader::ChunkSystem::maniac_save_scene_hook_flags,
+	"maniac_save_scene_hook_flags",
+	0,
+	0
+);
+static TypedField<rpg::System, DBString> static_maniac_message_font_name(
+	&rpg::System::maniac_message_font_name,
+	LDB_Reader::ChunkSystem::maniac_message_font_name,
+	"maniac_message_font_name",
+	0,
+	0
+);
+static TypedField<rpg::System, int32_t> static_maniac_message_font_size(
+	&rpg::System::maniac_message_font_size,
+	LDB_Reader::ChunkSystem::maniac_message_font_size,
+	"maniac_message_font_size",
+	0,
+	0
+);
+static TypedField<rpg::System, int32_t> static_maniac_message_window_width(
+	&rpg::System::maniac_message_window_width,
+	LDB_Reader::ChunkSystem::maniac_message_window_width,
+	"maniac_message_window_width",
+	0,
+	0
+);
+static TypedField<rpg::System, int32_t> static_maniac_message_window_height(
+	&rpg::System::maniac_message_window_height,
+	LDB_Reader::ChunkSystem::maniac_message_window_height,
+	"maniac_message_window_height",
+	0,
+	0
+);
+static TypedField<rpg::System, int32_t> static_maniac_message_spacing_char(
+	&rpg::System::maniac_message_spacing_char,
+	LDB_Reader::ChunkSystem::maniac_message_spacing_char,
+	"maniac_message_spacing_char",
+	0,
+	0
+);
+static TypedField<rpg::System, int32_t> static_maniac_message_spacing_line(
+	&rpg::System::maniac_message_spacing_line,
+	LDB_Reader::ChunkSystem::maniac_message_spacing_line,
+	"maniac_message_spacing_line",
+	0,
+	0
+);
+static TypedField<rpg::System, int32_t> static_maniac_message_face_x(
+	&rpg::System::maniac_message_face_x,
+	LDB_Reader::ChunkSystem::maniac_message_face_x,
+	"maniac_message_face_x",
+	0,
+	0
+);
+static TypedField<rpg::System, int32_t> static_maniac_message_face_y(
+	&rpg::System::maniac_message_face_y,
+	LDB_Reader::ChunkSystem::maniac_message_face_y,
+	"maniac_message_face_y",
+	0,
+	0
+);
+static TypedField<rpg::System, int32_t> static_maniac_message_text_x(
+	&rpg::System::maniac_message_text_x,
+	LDB_Reader::ChunkSystem::maniac_message_text_x,
+	"maniac_message_text_x",
+	0,
+	0
+);
+static TypedField<rpg::System, int32_t> static_maniac_message_text_y(
+	&rpg::System::maniac_message_text_y,
+	LDB_Reader::ChunkSystem::maniac_message_text_y,
+	"maniac_message_text_y",
+	0,
+	0
+);
+static TypedField<rpg::System, int32_t> static_maniac_message_text_face_x(
+	&rpg::System::maniac_message_text_face_x,
+	LDB_Reader::ChunkSystem::maniac_message_text_face_x,
+	"maniac_message_text_face_x",
+	0,
+	0
+);
+static TypedField<rpg::System, int32_t> static_maniac_message_text_face_y(
+	&rpg::System::maniac_message_text_face_y,
+	LDB_Reader::ChunkSystem::maniac_message_text_face_y,
+	"maniac_message_text_face_y",
+	0,
+	0
+);
+static TypedField<rpg::System, int32_t> static_maniac_message_face_width(
+	&rpg::System::maniac_message_face_width,
+	LDB_Reader::ChunkSystem::maniac_message_face_width,
+	"maniac_message_face_width",
+	0,
+	0
+);
+static TypedField<rpg::System, int32_t> static_maniac_message_face_height(
+	&rpg::System::maniac_message_face_height,
+	LDB_Reader::ChunkSystem::maniac_message_face_height,
+	"maniac_message_face_height",
+	0,
+	0
+);
 static TypedField<rpg::System, int32_t> static_easyrpg_alternative_exp(
 	&rpg::System::easyrpg_alternative_exp,
 	LDB_Reader::ChunkSystem::easyrpg_alternative_exp,
@@ -618,6 +758,26 @@ Field<rpg::System> const* Struct<rpg::System>::fields[] = {
 	&static_frame_name,
 	&static_invert_animations,
 	&static_show_title,
+	&static_maniac_title_scene_common_event_id,
+	&static_maniac_title_scene_variable_id,
+	&static_maniac_title_scene_hook_flags,
+	&static_maniac_save_scene_common_event_id,
+	&static_maniac_save_scene_variable_id,
+	&static_maniac_save_scene_hook_flags,
+	&static_maniac_message_font_name,
+	&static_maniac_message_font_size,
+	&static_maniac_message_window_width,
+	&static_maniac_message_window_height,
+	&static_maniac_message_spacing_char,
+	&static_maniac_message_spacing_line,
+	&static_maniac_message_face_x,
+	&static_maniac_message_face_y,
+	&static_maniac_message_text_x,
+	&static_maniac_message_text_y,
+	&static_maniac_message_text_face_x,
+	&static_maniac_message_text_face_y,
+	&static_maniac_message_face_width,
+	&static_maniac_message_face_height,
 	&static_easyrpg_alternative_exp,
 	&static_easyrpg_battle_options,
 	&static_easyrpg_max_actor_hp,

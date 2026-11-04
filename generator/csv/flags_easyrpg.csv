@@ -31,3 +31,17 @@ ManiacMessageHook,user_event,0
 ManiacMessageHook,create_window,0
 ManiacMessageHook,destroy_window,0
 ManiacMessageHook,text_rendering,0
+ManiacTitleSceneHook,initialize,0
+ManiacTitleSceneHook,create_picture,0
+ManiacTitleSceneHook,begin_scene,0
+ManiacTitleSceneHook,end_scene,0
+ManiacTitleSceneHook,every_frame,0
+ManiacTitleSceneHook,selection_changed,0
+ManiacTitleSceneHook,new_game,0
+ManiacSaveSceneHook,initialize,0
+ManiacSaveSceneHook,create_picture,0
+ManiacSaveSceneHook,begin_scene,0
+ManiacSaveSceneHook,end_scene,0
+ManiacSaveSceneHook,every_frame,0
+ManiacSaveSceneHook,selection_changed,0
+ManiacSaveSceneHook,new_game,0

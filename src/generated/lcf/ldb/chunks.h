@@ -1448,6 +1448,46 @@ namespace LDB_Reader {
 			invert_animations = 0x65,
 			/** When false the title is skipped and the game starts directly. In TestPlay mode skips directly to the Load scene. Added in RPG Maker 2003 v1.11 */
 			show_title = 0x6F,
+			/** Common event called by the title scene (0: none) */
+			maniac_title_scene_common_event_id = 0x79,
+			/** Variable (start of range) the title scene writes its state to before calling the common event */
+			maniac_title_scene_variable_id = 0x7A,
+			/** When the title scene calls the common event */
+			maniac_title_scene_hook_flags = 0x7B,
+			/** Common event called by the save/load scene (0: none) */
+			maniac_save_scene_common_event_id = 0x7C,
+			/** Variable (start of range) the save/load scene writes its state to before calling the common event */
+			maniac_save_scene_variable_id = 0x7D,
+			/** When the save/load scene calls the common event */
+			maniac_save_scene_hook_flags = 0x7E,
+			/** Font of the message window (empty: the system font) */
+			maniac_message_font_name = 0x80,
+			/** Font size of the message window */
+			maniac_message_font_size = 0x81,
+			/** Width of the message window in pixels (<= 0: 320) */
+			maniac_message_window_width = 0x82,
+			/** Height of the message window in pixels (<= 0: computed from the text position and the line height) */
+			maniac_message_window_height = 0x83,
+			/** Additional spacing between characters in the message window */
+			maniac_message_spacing_char = 0x84,
+			/** Additional spacing between lines in the message window (line height: font size + this) */
+			maniac_message_spacing_line = 0x85,
+			/** X position of the face graphic in the message window */
+			maniac_message_face_x = 0x86,
+			/** Y position of the face graphic in the message window */
+			maniac_message_face_y = 0x87,
+			/** X position of the text without a face graphic */
+			maniac_message_text_x = 0x88,
+			/** Y position of the text without a face graphic */
+			maniac_message_text_y = 0x89,
+			/** X position of the text with a face graphic (< 0: face width + 2 * face x) */
+			maniac_message_text_face_x = 0x8A,
+			/** Y position of the text with a face graphic */
+			maniac_message_text_face_y = 0x8B,
+			/** Width of the face graphic in pixels */
+			maniac_message_face_width = 0x8C,
+			/** Height of the face graphic in pixels */
+			maniac_message_face_height = 0x8D,
 			/** Which EXP formula to use: 0=Default 1=2k 2=2k3 */
 			easyrpg_alternative_exp = 0xC8,
 			/** Available battle options where 0=Battle 1=AutoBattle 2=Escape 3=Win 4=Lose */
