@@ -22,6 +22,7 @@
 #include "lcf/rpg/music.h"
 #include "lcf/rpg/sound.h"
 #include "lcf/context.h"
+#include "lcf/unknown_chunk.h"
 #include <ostream>
 #include <type_traits>
 
@@ -150,6 +151,8 @@ namespace rpg {
 		std::vector<uint8_t> maniac_joypad_bindings;
 		int32_t maniac_message_spacing_char = 0;
 		int32_t maniac_message_spacing_line = 0;
+		/** Chunks liblcf does not know: written back on save. */
+		std::vector<UnknownChunk> unknown_chunks;
 	};
 	inline std::ostream& operator<<(std::ostream& os, SaveSystem::Scene code) {
 		os << static_cast<std::underlying_type_t<decltype(code)>>(code);
@@ -245,7 +248,8 @@ namespace rpg {
 		&& l.maniac_options == r.maniac_options
 		&& l.maniac_joypad_bindings == r.maniac_joypad_bindings
 		&& l.maniac_message_spacing_char == r.maniac_message_spacing_char
-		&& l.maniac_message_spacing_line == r.maniac_message_spacing_line;
+		&& l.maniac_message_spacing_line == r.maniac_message_spacing_line
+		&& l.unknown_chunks == r.unknown_chunks;
 	}
 
 	inline bool operator!=(const SaveSystem& l, const SaveSystem& r) {

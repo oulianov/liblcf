@@ -16,6 +16,7 @@
 #include <stdint.h>
 #include "lcf/dbstring.h"
 #include "lcf/context.h"
+#include "lcf/unknown_chunk.h"
 #include <ostream>
 #include <type_traits>
 
@@ -30,12 +31,15 @@ namespace rpg {
 		DBString name;
 		DBString weapon_name;
 		int32_t weapon_index = 0;
+		/** Chunks liblcf does not know: written back on save. */
+		std::vector<UnknownChunk> unknown_chunks;
 	};
 
 	inline bool operator==(const BattlerAnimationWeapon& l, const BattlerAnimationWeapon& r) {
 		return l.name == r.name
 		&& l.weapon_name == r.weapon_name
-		&& l.weapon_index == r.weapon_index;
+		&& l.weapon_index == r.weapon_index
+		&& l.unknown_chunks == r.unknown_chunks;
 	}
 
 	inline bool operator!=(const BattlerAnimationWeapon& l, const BattlerAnimationWeapon& r) {

@@ -16,6 +16,7 @@
 #include <vector>
 #include "lcf/rpg/movecommand.h"
 #include "lcf/context.h"
+#include "lcf/unknown_chunk.h"
 #include <ostream>
 #include <type_traits>
 
@@ -29,12 +30,15 @@ namespace rpg {
 		std::vector<MoveCommand> move_commands;
 		bool repeat = true;
 		bool skippable = false;
+		/** Chunks liblcf does not know: written back on save. */
+		std::vector<UnknownChunk> unknown_chunks;
 	};
 
 	inline bool operator==(const MoveRoute& l, const MoveRoute& r) {
 		return l.move_commands == r.move_commands
 		&& l.repeat == r.repeat
-		&& l.skippable == r.skippable;
+		&& l.skippable == r.skippable
+		&& l.unknown_chunks == r.unknown_chunks;
 	}
 
 	inline bool operator!=(const MoveRoute& l, const MoveRoute& r) {

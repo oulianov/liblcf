@@ -17,6 +17,7 @@
 #include <vector>
 #include "lcf/rpg/saveeasyrpgwindow.h"
 #include "lcf/context.h"
+#include "lcf/unknown_chunk.h"
 #include <ostream>
 #include <type_traits>
 
@@ -30,12 +31,15 @@ namespace rpg {
 		int32_t version = 0;
 		int32_t codepage = 0;
 		std::vector<SaveEasyRpgWindow> windows;
+		/** Chunks liblcf does not know: written back on save. */
+		std::vector<UnknownChunk> unknown_chunks;
 	};
 
 	inline bool operator==(const SaveEasyRpgData& l, const SaveEasyRpgData& r) {
 		return l.version == r.version
 		&& l.codepage == r.codepage
-		&& l.windows == r.windows;
+		&& l.windows == r.windows
+		&& l.unknown_chunks == r.unknown_chunks;
 	}
 
 	inline bool operator!=(const SaveEasyRpgData& l, const SaveEasyRpgData& r) {

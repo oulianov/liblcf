@@ -18,6 +18,7 @@
 #include "lcf/dbstring.h"
 #include "lcf/enum_tags.h"
 #include "lcf/context.h"
+#include "lcf/unknown_chunk.h"
 #include <ostream>
 #include <type_traits>
 
@@ -45,6 +46,8 @@ namespace rpg {
 		std::vector<uint8_t> passable_data_upper = {31, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15};
 		int32_t animation_type = 0;
 		int32_t animation_speed = 0;
+		/** Chunks liblcf does not know: written back on save. */
+		std::vector<UnknownChunk> unknown_chunks;
 	};
 	inline std::ostream& operator<<(std::ostream& os, Chipset::AnimType code) {
 		os << static_cast<std::underlying_type_t<decltype(code)>>(code);
@@ -58,7 +61,8 @@ namespace rpg {
 		&& l.passable_data_lower == r.passable_data_lower
 		&& l.passable_data_upper == r.passable_data_upper
 		&& l.animation_type == r.animation_type
-		&& l.animation_speed == r.animation_speed;
+		&& l.animation_speed == r.animation_speed
+		&& l.unknown_chunks == r.unknown_chunks;
 	}
 
 	inline bool operator!=(const Chipset& l, const Chipset& r) {

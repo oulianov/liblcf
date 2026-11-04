@@ -18,6 +18,7 @@
 #include <vector>
 #include "lcf/rpg/savemapevent.h"
 #include "lcf/context.h"
+#include "lcf/unknown_chunk.h"
 #include <ostream>
 #include <type_traits>
 
@@ -42,6 +43,8 @@ namespace rpg {
 		int32_t parallax_horz_speed = 0;
 		bool parallax_vert_auto = false;
 		int32_t parallax_vert_speed = 0;
+		/** Chunks liblcf does not know: written back on save. */
+		std::vector<UnknownChunk> unknown_chunks;
 	};
 
 	inline bool operator==(const SaveMapInfo& l, const SaveMapInfo& r) {
@@ -58,7 +61,8 @@ namespace rpg {
 		&& l.parallax_horz_auto == r.parallax_horz_auto
 		&& l.parallax_horz_speed == r.parallax_horz_speed
 		&& l.parallax_vert_auto == r.parallax_vert_auto
-		&& l.parallax_vert_speed == r.parallax_vert_speed;
+		&& l.parallax_vert_speed == r.parallax_vert_speed
+		&& l.unknown_chunks == r.unknown_chunks;
 	}
 
 	inline bool operator!=(const SaveMapInfo& l, const SaveMapInfo& r) {

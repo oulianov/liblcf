@@ -31,6 +31,7 @@
 #include "lcf/rpg/treemap.h"
 #include "lcf/rpg/rect.h"
 #include "lcf/rpg/terms.h"
+#include "lcf/unknown_chunk.h"
 #include "log.h"
 
 namespace lcf {
@@ -596,6 +597,21 @@ struct StringComparator {
 	bool operator() (const char* const& lhs, const char* const& rhs) const {
 		return strcmp(lhs, rhs) < 0;
 	}
+};
+
+/**
+ * Reader for the chunks of a struct that liblcf does not know.
+ * They are kept as raw data (UnknownChunk) and written back on save.
+ */
+struct UnknownChunks {
+	/** Name of the XML element of the unknown chunks of a struct. */
+	static const char* const name;
+
+	static void ReadLcf(std::vector<UnknownChunk>& ref, LcfReader& stream, const LcfReader::Chunk& chunk_info, const char* where);
+	static void WriteLcf(const UnknownChunk& ref, LcfWriter& stream);
+	static int LcfSize(const std::vector<UnknownChunk>& ref);
+	static void WriteXml(const std::vector<UnknownChunk>& ref, XmlWriter& stream);
+	static void BeginXml(std::vector<UnknownChunk>& ref, XmlReader& stream);
 };
 
 // Struct class template

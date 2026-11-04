@@ -15,6 +15,7 @@
 // Headers
 #include <stdint.h>
 #include "lcf/context.h"
+#include "lcf/unknown_chunk.h"
 #include <ostream>
 #include <type_traits>
 
@@ -31,6 +32,8 @@ namespace rpg {
 		int32_t map_y = 0;
 		bool switch_on = false;
 		int32_t switch_id = 0;
+		/** Chunks liblcf does not know: written back on save. */
+		std::vector<UnknownChunk> unknown_chunks;
 	};
 
 	inline bool operator==(const SaveTarget& l, const SaveTarget& r) {
@@ -38,7 +41,8 @@ namespace rpg {
 		&& l.map_x == r.map_x
 		&& l.map_y == r.map_y
 		&& l.switch_on == r.switch_on
-		&& l.switch_id == r.switch_id;
+		&& l.switch_id == r.switch_id
+		&& l.unknown_chunks == r.unknown_chunks;
 	}
 
 	inline bool operator!=(const SaveTarget& l, const SaveTarget& r) {

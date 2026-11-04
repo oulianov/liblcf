@@ -15,6 +15,7 @@
 // Headers
 #include <stdint.h>
 #include "lcf/context.h"
+#include "lcf/unknown_chunk.h"
 #include <ostream>
 #include <type_traits>
 
@@ -37,6 +38,8 @@ namespace rpg {
 		int32_t airship_map_id = 0;
 		int32_t airship_x = 0;
 		int32_t airship_y = 0;
+		/** Chunks liblcf does not know: written back on save. */
+		std::vector<UnknownChunk> unknown_chunks;
 	};
 
 	inline bool operator==(const Start& l, const Start& r) {
@@ -51,7 +54,8 @@ namespace rpg {
 		&& l.ship_y == r.ship_y
 		&& l.airship_map_id == r.airship_map_id
 		&& l.airship_x == r.airship_x
-		&& l.airship_y == r.airship_y;
+		&& l.airship_y == r.airship_y
+		&& l.unknown_chunks == r.unknown_chunks;
 	}
 
 	inline bool operator!=(const Start& l, const Start& r) {

@@ -14,6 +14,9 @@ These are files for chunks like Actor, Class and Event.
 #include {{ header }}
 {%- endfor %}
 #include "lcf/context.h"
+{%- if has_id is not none and not struct_base %}
+#include "lcf/unknown_chunk.h"
+{%- endif %}
 #include <ostream>
 #include <type_traits>
 
@@ -98,6 +101,10 @@ namespace rpg {
 		{%- endif %}
 	{%- endif %}
 	{%- endfor %}
+	{%- if has_id is not none and not struct_base %}
+		/** Chunks liblcf does not know: written back on save. */
+		std::vector<UnknownChunk> unknown_chunks;
+	{%- endif %}
 	};
 	{%- if struct_name in enums %}
 	{%- for name, enum in enums[struct_name].items() %}
@@ -131,7 +138,12 @@ namespace rpg {
 		return
 		{%- else %}
 		&&
-		{%- endif %} l.{{ field.name }} == r.{{ field.name }} {%- if loop.last %};{%- endif %}
+		{%- endif %} l.{{ field.name }} == r.{{ field.name }}
+		{%- if loop.last %}
+		{%- if has_id is not none and not struct_base %}
+		&& l.unknown_chunks == r.unknown_chunks
+		{%- endif %};
+		{%- endif %}
 	{%- endfor %}
 	}
 

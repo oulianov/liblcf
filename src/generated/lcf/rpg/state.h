@@ -18,6 +18,7 @@
 #include "lcf/dbstring.h"
 #include "lcf/enum_tags.h"
 #include "lcf/context.h"
+#include "lcf/unknown_chunk.h"
 #include <ostream>
 #include <type_traits>
 
@@ -116,6 +117,8 @@ namespace rpg {
 		int32_t sp_change_map_steps = 0;
 		int32_t sp_change_map_val = 0;
 		DBBitArray easyrpg_immune_states;
+		/** Chunks liblcf does not know: written back on save. */
+		std::vector<UnknownChunk> unknown_chunks;
 	};
 	inline std::ostream& operator<<(std::ostream& os, State::Persistence code) {
 		os << static_cast<std::underlying_type_t<decltype(code)>>(code);
@@ -177,7 +180,8 @@ namespace rpg {
 		&& l.sp_change_val == r.sp_change_val
 		&& l.sp_change_map_steps == r.sp_change_map_steps
 		&& l.sp_change_map_val == r.sp_change_map_val
-		&& l.easyrpg_immune_states == r.easyrpg_immune_states;
+		&& l.easyrpg_immune_states == r.easyrpg_immune_states
+		&& l.unknown_chunks == r.unknown_chunks;
 	}
 
 	inline bool operator!=(const State& l, const State& r) {

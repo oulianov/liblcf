@@ -29,6 +29,7 @@
 #include "lcf/rpg/savetitle.h"
 #include "lcf/rpg/savevehiclelocation.h"
 #include "lcf/context.h"
+#include "lcf/unknown_chunk.h"
 #include <ostream>
 #include <type_traits>
 
@@ -55,6 +56,8 @@ namespace rpg {
 		SaveEventExecState foreground_event_execstate;
 		std::vector<SaveCommonEvent> common_events;
 		SaveEasyRpgData easyrpg_data;
+		/** Chunks liblcf does not know: written back on save. */
+		std::vector<UnknownChunk> unknown_chunks;
 	};
 
 	inline bool operator==(const Save& l, const Save& r) {
@@ -73,7 +76,8 @@ namespace rpg {
 		&& l.panorama == r.panorama
 		&& l.foreground_event_execstate == r.foreground_event_execstate
 		&& l.common_events == r.common_events
-		&& l.easyrpg_data == r.easyrpg_data;
+		&& l.easyrpg_data == r.easyrpg_data
+		&& l.unknown_chunks == r.unknown_chunks;
 	}
 
 	inline bool operator!=(const Save& l, const Save& r) {

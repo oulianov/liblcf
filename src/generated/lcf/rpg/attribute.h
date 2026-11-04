@@ -17,6 +17,7 @@
 #include "lcf/dbstring.h"
 #include "lcf/enum_tags.h"
 #include "lcf/context.h"
+#include "lcf/unknown_chunk.h"
 #include <ostream>
 #include <type_traits>
 
@@ -44,6 +45,8 @@ namespace rpg {
 		int32_t c_rate = 100;
 		int32_t d_rate = 50;
 		int32_t e_rate = 0;
+		/** Chunks liblcf does not know: written back on save. */
+		std::vector<UnknownChunk> unknown_chunks;
 	};
 	inline std::ostream& operator<<(std::ostream& os, Attribute::Type code) {
 		os << static_cast<std::underlying_type_t<decltype(code)>>(code);
@@ -57,7 +60,8 @@ namespace rpg {
 		&& l.b_rate == r.b_rate
 		&& l.c_rate == r.c_rate
 		&& l.d_rate == r.d_rate
-		&& l.e_rate == r.e_rate;
+		&& l.e_rate == r.e_rate
+		&& l.unknown_chunks == r.unknown_chunks;
 	}
 
 	inline bool operator!=(const Attribute& l, const Attribute& r) {

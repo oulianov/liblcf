@@ -35,6 +35,7 @@
 #include "lcf/rpg/troop.h"
 #include "lcf/rpg/variable.h"
 #include "lcf/context.h"
+#include "lcf/unknown_chunk.h"
 #include <ostream>
 #include <type_traits>
 
@@ -66,6 +67,8 @@ namespace rpg {
 		std::vector<Class> classes;
 		std::vector<BattlerAnimation> battleranimations;
 		std::vector<StringVariable> maniac_string_variables;
+		/** Chunks liblcf does not know: written back on save. */
+		std::vector<UnknownChunk> unknown_chunks;
 	};
 
 	inline bool operator==(const Database& l, const Database& r) {
@@ -88,7 +91,8 @@ namespace rpg {
 		&& l.battlecommands == r.battlecommands
 		&& l.classes == r.classes
 		&& l.battleranimations == r.battleranimations
-		&& l.maniac_string_variables == r.maniac_string_variables;
+		&& l.maniac_string_variables == r.maniac_string_variables
+		&& l.unknown_chunks == r.unknown_chunks;
 	}
 
 	inline bool operator!=(const Database& l, const Database& r) {

@@ -20,6 +20,7 @@
 #include "lcf/enum_tags.h"
 #include "lcf/rpg/saveeasyrpgtext.h"
 #include "lcf/context.h"
+#include "lcf/unknown_chunk.h"
 #include <ostream>
 #include <type_traits>
 
@@ -47,6 +48,8 @@ namespace rpg {
 			Flags() noexcept: draw_frame(true), border_margin(true)
 			{}
 		} flags;
+		/** Chunks liblcf does not know: written back on save. */
+		std::vector<UnknownChunk> unknown_chunks;
 	};
 
 	inline bool operator==(const SaveEasyRpgWindow::Flags& l, const SaveEasyRpgWindow::Flags& r) {
@@ -65,7 +68,8 @@ namespace rpg {
 		&& l.height == r.height
 		&& l.system_name == r.system_name
 		&& l.message_stretch == r.message_stretch
-		&& l.flags == r.flags;
+		&& l.flags == r.flags
+		&& l.unknown_chunks == r.unknown_chunks;
 	}
 
 	inline bool operator!=(const SaveEasyRpgWindow& l, const SaveEasyRpgWindow& r) {

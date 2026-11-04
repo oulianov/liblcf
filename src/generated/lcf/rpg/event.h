@@ -18,6 +18,7 @@
 #include "lcf/dbstring.h"
 #include "lcf/rpg/eventpage.h"
 #include "lcf/context.h"
+#include "lcf/unknown_chunk.h"
 #include <ostream>
 #include <type_traits>
 
@@ -33,13 +34,16 @@ namespace rpg {
 		int32_t x = 0;
 		int32_t y = 0;
 		std::vector<EventPage> pages;
+		/** Chunks liblcf does not know: written back on save. */
+		std::vector<UnknownChunk> unknown_chunks;
 	};
 
 	inline bool operator==(const Event& l, const Event& r) {
 		return l.name == r.name
 		&& l.x == r.x
 		&& l.y == r.y
-		&& l.pages == r.pages;
+		&& l.pages == r.pages
+		&& l.unknown_chunks == r.unknown_chunks;
 	}
 
 	inline bool operator!=(const Event& l, const Event& r) {

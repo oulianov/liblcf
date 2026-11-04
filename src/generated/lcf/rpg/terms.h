@@ -15,6 +15,7 @@
 // Headers
 #include "lcf/dbstring.h"
 #include "lcf/context.h"
+#include "lcf/unknown_chunk.h"
 #include <ostream>
 #include <type_traits>
 
@@ -182,6 +183,8 @@ namespace rpg {
 		DBString easyrpg_battle2k3_special_combat_back;
 		DBString easyrpg_battle2k3_skill = DBString(kDefaultTerm);
 		DBString easyrpg_battle2k3_item = DBString(kDefaultTerm);
+		/** Chunks liblcf does not know: written back on save. */
+		std::vector<UnknownChunk> unknown_chunks;
 	};
 
 	inline bool operator==(const Terms& l, const Terms& r) {
@@ -337,7 +340,8 @@ namespace rpg {
 		&& l.easyrpg_battle2k3_escape == r.easyrpg_battle2k3_escape
 		&& l.easyrpg_battle2k3_special_combat_back == r.easyrpg_battle2k3_special_combat_back
 		&& l.easyrpg_battle2k3_skill == r.easyrpg_battle2k3_skill
-		&& l.easyrpg_battle2k3_item == r.easyrpg_battle2k3_item;
+		&& l.easyrpg_battle2k3_item == r.easyrpg_battle2k3_item
+		&& l.unknown_chunks == r.unknown_chunks;
 	}
 
 	inline bool operator!=(const Terms& l, const Terms& r) {

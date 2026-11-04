@@ -17,6 +17,7 @@
 #include <stdint.h>
 #include "lcf/dbstring.h"
 #include "lcf/context.h"
+#include "lcf/unknown_chunk.h"
 #include <ostream>
 #include <type_traits>
 
@@ -47,6 +48,8 @@ namespace rpg {
 			Flags() noexcept: draw_gradient(true), draw_shadow(true), bold(false), italic(false)
 			{}
 		} flags;
+		/** Chunks liblcf does not know: written back on save. */
+		std::vector<UnknownChunk> unknown_chunks;
 	};
 
 	inline bool operator==(const SaveEasyRpgText::Flags& l, const SaveEasyRpgText::Flags& r) {
@@ -67,7 +70,8 @@ namespace rpg {
 		&& l.font_size == r.font_size
 		&& l.letter_spacing == r.letter_spacing
 		&& l.line_spacing == r.line_spacing
-		&& l.flags == r.flags;
+		&& l.flags == r.flags
+		&& l.unknown_chunks == r.unknown_chunks;
 	}
 
 	inline bool operator!=(const SaveEasyRpgText& l, const SaveEasyRpgText& r) {

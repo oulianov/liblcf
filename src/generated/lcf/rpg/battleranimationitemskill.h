@@ -16,6 +16,7 @@
 #include <stdint.h>
 #include "lcf/enum_tags.h"
 #include "lcf/context.h"
+#include "lcf/unknown_chunk.h"
 #include <ostream>
 #include <type_traits>
 
@@ -77,6 +78,8 @@ namespace rpg {
 		int32_t ranged_speed = 0;
 		int32_t battle_animation_id = 1;
 		int32_t pose = 3;
+		/** Chunks liblcf does not know: written back on save. */
+		std::vector<UnknownChunk> unknown_chunks;
 	};
 	inline std::ostream& operator<<(std::ostream& os, BattlerAnimationItemSkill::Speed code) {
 		os << static_cast<std::underlying_type_t<decltype(code)>>(code);
@@ -106,7 +109,8 @@ namespace rpg {
 		&& l.ranged_animation_id == r.ranged_animation_id
 		&& l.ranged_speed == r.ranged_speed
 		&& l.battle_animation_id == r.battle_animation_id
-		&& l.pose == r.pose;
+		&& l.pose == r.pose
+		&& l.unknown_chunks == r.unknown_chunks;
 	}
 
 	inline bool operator!=(const BattlerAnimationItemSkill& l, const BattlerAnimationItemSkill& r) {

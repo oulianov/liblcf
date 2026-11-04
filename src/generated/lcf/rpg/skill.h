@@ -21,6 +21,7 @@
 #include "lcf/rpg/battleranimationitemskill.h"
 #include "lcf/rpg/sound.h"
 #include "lcf/context.h"
+#include "lcf/unknown_chunk.h"
 #include <ostream>
 #include <type_traits>
 
@@ -127,6 +128,8 @@ namespace rpg {
 		int32_t easyrpg_hp_type = 0;
 		int32_t easyrpg_hp_percent = 0;
 		int32_t easyrpg_hp_cost = 0;
+		/** Chunks liblcf does not know: written back on save. */
+		std::vector<UnknownChunk> unknown_chunks;
 	};
 	inline std::ostream& operator<<(std::ostream& os, Skill::Type code) {
 		os << static_cast<std::underlying_type_t<decltype(code)>>(code);
@@ -192,7 +195,8 @@ namespace rpg {
 		&& l.easyrpg_affected_by_row_modifiers == r.easyrpg_affected_by_row_modifiers
 		&& l.easyrpg_hp_type == r.easyrpg_hp_type
 		&& l.easyrpg_hp_percent == r.easyrpg_hp_percent
-		&& l.easyrpg_hp_cost == r.easyrpg_hp_cost;
+		&& l.easyrpg_hp_cost == r.easyrpg_hp_cost
+		&& l.unknown_chunks == r.unknown_chunks;
 	}
 
 	inline bool operator!=(const Skill& l, const Skill& r) {

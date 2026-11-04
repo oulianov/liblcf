@@ -16,6 +16,7 @@
 #include <stdint.h>
 #include "lcf/enum_tags.h"
 #include "lcf/context.h"
+#include "lcf/unknown_chunk.h"
 #include <ostream>
 #include <type_traits>
 
@@ -91,6 +92,8 @@ namespace rpg {
 		bool switch_off = false;
 		int32_t switch_off_id = 1;
 		int32_t rating = 50;
+		/** Chunks liblcf does not know: written back on save. */
+		std::vector<UnknownChunk> unknown_chunks;
 	};
 	inline std::ostream& operator<<(std::ostream& os, EnemyAction::Kind code) {
 		os << static_cast<std::underlying_type_t<decltype(code)>>(code);
@@ -118,7 +121,8 @@ namespace rpg {
 		&& l.switch_on_id == r.switch_on_id
 		&& l.switch_off == r.switch_off
 		&& l.switch_off_id == r.switch_off_id
-		&& l.rating == r.rating;
+		&& l.rating == r.rating
+		&& l.unknown_chunks == r.unknown_chunks;
 	}
 
 	inline bool operator!=(const EnemyAction& l, const EnemyAction& r) {

@@ -19,6 +19,7 @@
 #include "lcf/dbstring.h"
 #include "lcf/rpg/saveeventexecframe.h"
 #include "lcf/context.h"
+#include "lcf/unknown_chunk.h"
 #include <ostream>
 #include <type_traits>
 
@@ -83,6 +84,8 @@ namespace rpg {
 			EasyRpgStateRuntime_Flags() noexcept: conf_override_active(false), reserved_1(false), reserved_2(false), reserved_3(false), patch_destiny_on(false), patch_destiny_off(false), patch_dynrpg_on(false), patch_dynrpg_off(false), patch_maniac_on(false), patch_maniac_off(false), patch_common_this_event_on(false), patch_common_this_event_off(false), patch_unlock_pics_on(false), patch_unlock_pics_off(false), patch_keypatch_on(false), patch_keypatch_off(false), patch_rpg2k3_cmds_on(false), patch_rpg2k3_cmds_off(false), use_rpg2k_battle_system_on(false), use_rpg2k_battle_system_off(false)
 			{}
 		} easyrpg_runtime_flags;
+		/** Chunks liblcf does not know: written back on save. */
+		std::vector<UnknownChunk> unknown_chunks;
 	};
 
 	inline bool operator==(const SaveEventExecState::EasyRpgStateRuntime_Flags& l, const SaveEventExecState::EasyRpgStateRuntime_Flags& r) {
@@ -121,7 +124,8 @@ namespace rpg {
 		&& l.easyrpg_active == r.easyrpg_active
 		&& l.easyrpg_string == r.easyrpg_string
 		&& l.easyrpg_parameters == r.easyrpg_parameters
-		&& l.easyrpg_runtime_flags == r.easyrpg_runtime_flags;
+		&& l.easyrpg_runtime_flags == r.easyrpg_runtime_flags
+		&& l.unknown_chunks == r.unknown_chunks;
 	}
 
 	inline bool operator!=(const SaveEventExecState& l, const SaveEventExecState& r) {

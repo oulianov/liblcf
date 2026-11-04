@@ -16,6 +16,7 @@
 #include <array>
 #include <stdint.h>
 #include "lcf/context.h"
+#include "lcf/unknown_chunk.h"
 #include <ostream>
 #include <type_traits>
 
@@ -67,6 +68,8 @@ namespace rpg {
 		int32_t turn_actor_b = 0;
 		int32_t command_actor_id = 1;
 		int32_t command_id = 1;
+		/** Chunks liblcf does not know: written back on save. */
+		std::vector<UnknownChunk> unknown_chunks;
 	};
 
 	inline bool operator==(const TroopPageCondition::Flags& l, const TroopPageCondition::Flags& r) {
@@ -102,7 +105,8 @@ namespace rpg {
 		&& l.turn_actor_a == r.turn_actor_a
 		&& l.turn_actor_b == r.turn_actor_b
 		&& l.command_actor_id == r.command_actor_id
-		&& l.command_id == r.command_id;
+		&& l.command_id == r.command_id
+		&& l.unknown_chunks == r.unknown_chunks;
 	}
 
 	inline bool operator!=(const TroopPageCondition& l, const TroopPageCondition& r) {

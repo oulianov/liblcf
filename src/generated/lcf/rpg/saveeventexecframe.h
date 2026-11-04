@@ -18,6 +18,7 @@
 #include <vector>
 #include "lcf/rpg/eventcommand.h"
 #include "lcf/context.h"
+#include "lcf/unknown_chunk.h"
 #include <ostream>
 #include <type_traits>
 
@@ -49,6 +50,8 @@ namespace rpg {
 			EasyRpgFrameRuntime_Flags() noexcept: reserved_1(false)
 			{}
 		} easyrpg_runtime_flags;
+		/** Chunks liblcf does not know: written back on save. */
+		std::vector<UnknownChunk> unknown_chunks;
 	};
 
 	inline bool operator==(const SaveEventExecFrame::EasyRpgFrameRuntime_Flags& l, const SaveEventExecFrame::EasyRpgFrameRuntime_Flags& r) {
@@ -72,7 +75,8 @@ namespace rpg {
 		&& l.maniac_event_page_id == r.maniac_event_page_id
 		&& l.maniac_loop_info_size == r.maniac_loop_info_size
 		&& l.maniac_loop_info == r.maniac_loop_info
-		&& l.easyrpg_runtime_flags == r.easyrpg_runtime_flags;
+		&& l.easyrpg_runtime_flags == r.easyrpg_runtime_flags
+		&& l.unknown_chunks == r.unknown_chunks;
 	}
 
 	inline bool operator!=(const SaveEventExecFrame& l, const SaveEventExecFrame& r) {

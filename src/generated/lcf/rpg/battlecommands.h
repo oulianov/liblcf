@@ -18,6 +18,7 @@
 #include "lcf/enum_tags.h"
 #include "lcf/rpg/battlecommand.h"
 #include "lcf/context.h"
+#include "lcf/unknown_chunk.h"
 #include <ostream>
 #include <type_traits>
 
@@ -106,6 +107,8 @@ namespace rpg {
 		bool easyrpg_disable_row_feature = false;
 		int32_t easyrpg_fixed_actor_facing_direction = 0;
 		int32_t easyrpg_fixed_enemy_facing_direction = 0;
+		/** Chunks liblcf does not know: written back on save. */
+		std::vector<UnknownChunk> unknown_chunks;
 	};
 	inline std::ostream& operator<<(std::ostream& os, BattleCommands::Placement code) {
 		os << static_cast<std::underlying_type_t<decltype(code)>>(code);
@@ -153,7 +156,8 @@ namespace rpg {
 		&& l.easyrpg_sequential_order == r.easyrpg_sequential_order
 		&& l.easyrpg_disable_row_feature == r.easyrpg_disable_row_feature
 		&& l.easyrpg_fixed_actor_facing_direction == r.easyrpg_fixed_actor_facing_direction
-		&& l.easyrpg_fixed_enemy_facing_direction == r.easyrpg_fixed_enemy_facing_direction;
+		&& l.easyrpg_fixed_enemy_facing_direction == r.easyrpg_fixed_enemy_facing_direction
+		&& l.unknown_chunks == r.unknown_chunks;
 	}
 
 	inline bool operator!=(const BattleCommands& l, const BattleCommands& r) {

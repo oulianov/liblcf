@@ -21,6 +21,7 @@
 #include "lcf/rpg/music.h"
 #include "lcf/rpg/rect.h"
 #include "lcf/context.h"
+#include "lcf/unknown_chunk.h"
 #include <ostream>
 #include <type_traits>
 
@@ -80,6 +81,8 @@ namespace rpg {
 		std::vector<Encounter> encounters;
 		int32_t encounter_steps = 25;
 		Rect area_rect;
+		/** Chunks liblcf does not know: written back on save. */
+		std::vector<UnknownChunk> unknown_chunks;
 	};
 	inline std::ostream& operator<<(std::ostream& os, MapInfo::MusicType code) {
 		os << static_cast<std::underlying_type_t<decltype(code)>>(code);
@@ -111,7 +114,8 @@ namespace rpg {
 		&& l.save == r.save
 		&& l.encounters == r.encounters
 		&& l.encounter_steps == r.encounter_steps
-		&& l.area_rect == r.area_rect;
+		&& l.area_rect == r.area_rect
+		&& l.unknown_chunks == r.unknown_chunks;
 	}
 
 	inline bool operator!=(const MapInfo& l, const MapInfo& r) {

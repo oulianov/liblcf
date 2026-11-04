@@ -21,6 +21,7 @@
 #include "lcf/rpg/eventpagecondition.h"
 #include "lcf/rpg/moveroute.h"
 #include "lcf/context.h"
+#include "lcf/unknown_chunk.h"
 #include <ostream>
 #include <type_traits>
 
@@ -174,6 +175,8 @@ namespace rpg {
 		int32_t move_speed = 3;
 		MoveRoute move_route;
 		std::vector<EventCommand> event_commands;
+		/** Chunks liblcf does not know: written back on save. */
+		std::vector<UnknownChunk> unknown_chunks;
 	};
 	inline std::ostream& operator<<(std::ostream& os, EventPage::Direction code) {
 		os << static_cast<std::underlying_type_t<decltype(code)>>(code);
@@ -223,7 +226,8 @@ namespace rpg {
 		&& l.animation_type == r.animation_type
 		&& l.move_speed == r.move_speed
 		&& l.move_route == r.move_route
-		&& l.event_commands == r.event_commands;
+		&& l.event_commands == r.event_commands
+		&& l.unknown_chunks == r.unknown_chunks;
 	}
 
 	inline bool operator!=(const EventPage& l, const EventPage& r) {

@@ -16,6 +16,7 @@
 #include <stdint.h>
 #include <string>
 #include "lcf/context.h"
+#include "lcf/unknown_chunk.h"
 #include <ostream>
 #include <type_traits>
 
@@ -30,13 +31,16 @@ namespace rpg {
 		int32_t volume = 100;
 		int32_t tempo = 100;
 		int32_t balance = 50;
+		/** Chunks liblcf does not know: written back on save. */
+		std::vector<UnknownChunk> unknown_chunks;
 	};
 
 	inline bool operator==(const Sound& l, const Sound& r) {
 		return l.name == r.name
 		&& l.volume == r.volume
 		&& l.tempo == r.tempo
-		&& l.balance == r.balance;
+		&& l.balance == r.balance
+		&& l.unknown_chunks == r.unknown_chunks;
 	}
 
 	inline bool operator!=(const Sound& l, const Sound& r) {

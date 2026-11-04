@@ -17,6 +17,7 @@
 #include "lcf/dbstring.h"
 #include "lcf/enum_tags.h"
 #include "lcf/context.h"
+#include "lcf/unknown_chunk.h"
 #include <ostream>
 #include <type_traits>
 
@@ -42,6 +43,8 @@ namespace rpg {
 		int32_t battler_index = 0;
 		int32_t animation_type = 0;
 		int32_t battle_animation_id = 1;
+		/** Chunks liblcf does not know: written back on save. */
+		std::vector<UnknownChunk> unknown_chunks;
 	};
 	inline std::ostream& operator<<(std::ostream& os, BattlerAnimationPose::AnimType code) {
 		os << static_cast<std::underlying_type_t<decltype(code)>>(code);
@@ -53,7 +56,8 @@ namespace rpg {
 		&& l.battler_name == r.battler_name
 		&& l.battler_index == r.battler_index
 		&& l.animation_type == r.animation_type
-		&& l.battle_animation_id == r.battle_animation_id;
+		&& l.battle_animation_id == r.battle_animation_id
+		&& l.unknown_chunks == r.unknown_chunks;
 	}
 
 	inline bool operator!=(const BattlerAnimationPose& l, const BattlerAnimationPose& r) {

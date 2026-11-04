@@ -69,6 +69,7 @@ liblcf_la_SOURCES = \
 	src/rpg_setup.cpp \
 	src/rpg_terms.cpp \
 	src/saveopt.cpp \
+	src/unknown_chunk.cpp \
 	src/writer_lcf.cpp \
 	src/writer_xml.cpp \
 	src/generated/fwd_flags_impl.h \
@@ -234,6 +235,7 @@ lcfinclude_HEADERS = \
 	src/lcf/scope_guard.h \
 	src/lcf/span.h \
 	src/lcf/string_view.h \
+	src/lcf/unknown_chunk.h \
 	src/lcf/writer_lcf.h \
 	src/lcf/writer_xml.h
 
@@ -351,7 +353,8 @@ test_runner_SOURCES = \
 	tests/test_main.cpp \
 	tests/time_stamp.cpp \
 	tests/span.cpp \
-	tests/string_view.cpp
+	tests/string_view.cpp \
+	tests/unknown_chunk.cpp
 test_runner_CPPFLAGS = \
 	-I$(srcdir)/src \
 	-I$(srcdir)/src/generated

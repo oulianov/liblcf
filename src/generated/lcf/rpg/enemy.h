@@ -19,6 +19,7 @@
 #include "lcf/dbstring.h"
 #include "lcf/rpg/enemyaction.h"
 #include "lcf/context.h"
+#include "lcf/unknown_chunk.h"
 #include <ostream>
 #include <type_traits>
 
@@ -63,6 +64,8 @@ namespace rpg {
 		DBBitArray easyrpg_attribute_set;
 		bool easyrpg_super_guard = false;
 		bool easyrpg_attack_all = false;
+		/** Chunks liblcf does not know: written back on save. */
+		std::vector<UnknownChunk> unknown_chunks;
 	};
 
 	inline bool operator==(const Enemy& l, const Enemy& r) {
@@ -98,7 +101,8 @@ namespace rpg {
 		&& l.easyrpg_state_chance == r.easyrpg_state_chance
 		&& l.easyrpg_attribute_set == r.easyrpg_attribute_set
 		&& l.easyrpg_super_guard == r.easyrpg_super_guard
-		&& l.easyrpg_attack_all == r.easyrpg_attack_all;
+		&& l.easyrpg_attack_all == r.easyrpg_attack_all
+		&& l.unknown_chunks == r.unknown_chunks;
 	}
 
 	inline bool operator!=(const Enemy& l, const Enemy& r) {

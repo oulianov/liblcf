@@ -16,6 +16,7 @@
 #include <stdint.h>
 #include <vector>
 #include "lcf/context.h"
+#include "lcf/unknown_chunk.h"
 #include <ostream>
 #include <type_traits>
 
@@ -45,6 +46,8 @@ namespace rpg {
 		int32_t victories = 0;
 		int32_t turns = 0;
 		int32_t steps = 0;
+		/** Chunks liblcf does not know: written back on save. */
+		std::vector<UnknownChunk> unknown_chunks;
 	};
 
 	inline bool operator==(const SaveInventory& l, const SaveInventory& r) {
@@ -66,7 +69,8 @@ namespace rpg {
 		&& l.escapes == r.escapes
 		&& l.victories == r.victories
 		&& l.turns == r.turns
-		&& l.steps == r.steps;
+		&& l.steps == r.steps
+		&& l.unknown_chunks == r.unknown_chunks;
 	}
 
 	inline bool operator!=(const SaveInventory& l, const SaveInventory& r) {

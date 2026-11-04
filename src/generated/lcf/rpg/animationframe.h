@@ -16,6 +16,7 @@
 #include <vector>
 #include "lcf/rpg/animationcelldata.h"
 #include "lcf/context.h"
+#include "lcf/unknown_chunk.h"
 #include <ostream>
 #include <type_traits>
 
@@ -28,10 +29,13 @@ namespace rpg {
 	public:
 		int ID = 0;
 		std::vector<AnimationCellData> cells;
+		/** Chunks liblcf does not know: written back on save. */
+		std::vector<UnknownChunk> unknown_chunks;
 	};
 
 	inline bool operator==(const AnimationFrame& l, const AnimationFrame& r) {
-		return l.cells == r.cells;
+		return l.cells == r.cells
+		&& l.unknown_chunks == r.unknown_chunks;
 	}
 
 	inline bool operator!=(const AnimationFrame& l, const AnimationFrame& r) {

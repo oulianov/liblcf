@@ -19,6 +19,7 @@
 #include "lcf/rpg/battleranimationpose.h"
 #include "lcf/rpg/battleranimationweapon.h"
 #include "lcf/context.h"
+#include "lcf/unknown_chunk.h"
 #include <ostream>
 #include <type_traits>
 
@@ -73,6 +74,8 @@ namespace rpg {
 		int32_t speed = 20;
 		std::vector<BattlerAnimationPose> poses;
 		std::vector<BattlerAnimationWeapon> weapons;
+		/** Chunks liblcf does not know: written back on save. */
+		std::vector<UnknownChunk> unknown_chunks;
 	};
 	inline std::ostream& operator<<(std::ostream& os, BattlerAnimation::Speed code) {
 		os << static_cast<std::underlying_type_t<decltype(code)>>(code);
@@ -87,7 +90,8 @@ namespace rpg {
 		return l.name == r.name
 		&& l.speed == r.speed
 		&& l.poses == r.poses
-		&& l.weapons == r.weapons;
+		&& l.weapons == r.weapons
+		&& l.unknown_chunks == r.unknown_chunks;
 	}
 
 	inline bool operator!=(const BattlerAnimation& l, const BattlerAnimation& r) {

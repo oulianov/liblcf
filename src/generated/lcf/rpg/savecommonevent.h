@@ -15,6 +15,7 @@
 // Headers
 #include "lcf/rpg/saveeventexecstate.h"
 #include "lcf/context.h"
+#include "lcf/unknown_chunk.h"
 #include <ostream>
 #include <type_traits>
 
@@ -27,10 +28,13 @@ namespace rpg {
 	public:
 		int ID = 0;
 		SaveEventExecState parallel_event_execstate;
+		/** Chunks liblcf does not know: written back on save. */
+		std::vector<UnknownChunk> unknown_chunks;
 	};
 
 	inline bool operator==(const SaveCommonEvent& l, const SaveCommonEvent& r) {
-		return l.parallel_event_execstate == r.parallel_event_execstate;
+		return l.parallel_event_execstate == r.parallel_event_execstate
+		&& l.unknown_chunks == r.unknown_chunks;
 	}
 
 	inline bool operator!=(const SaveCommonEvent& l, const SaveCommonEvent& r) {

@@ -15,6 +15,7 @@
 // Headers
 #include <stdint.h>
 #include "lcf/context.h"
+#include "lcf/unknown_chunk.h"
 #include <ostream>
 #include <type_traits>
 
@@ -55,6 +56,8 @@ namespace rpg {
 		bool battleanim_global = false;
 		int32_t weather = 0;
 		int32_t weather_strength = 0;
+		/** Chunks liblcf does not know: written back on save. */
+		std::vector<UnknownChunk> unknown_chunks;
 	};
 
 	inline bool operator==(const SaveScreen& l, const SaveScreen& r) {
@@ -87,7 +90,8 @@ namespace rpg {
 		&& l.battleanim_active == r.battleanim_active
 		&& l.battleanim_global == r.battleanim_global
 		&& l.weather == r.weather
-		&& l.weather_strength == r.weather_strength;
+		&& l.weather_strength == r.weather_strength
+		&& l.unknown_chunks == r.unknown_chunks;
 	}
 
 	inline bool operator!=(const SaveScreen& l, const SaveScreen& r) {

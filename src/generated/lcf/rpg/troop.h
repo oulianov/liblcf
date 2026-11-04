@@ -19,6 +19,7 @@
 #include "lcf/rpg/troopmember.h"
 #include "lcf/rpg/trooppage.h"
 #include "lcf/context.h"
+#include "lcf/unknown_chunk.h"
 #include <ostream>
 #include <type_traits>
 
@@ -36,6 +37,8 @@ namespace rpg {
 		DBBitArray terrain_set;
 		bool appear_randomly = false;
 		std::vector<TroopPage> pages;
+		/** Chunks liblcf does not know: written back on save. */
+		std::vector<UnknownChunk> unknown_chunks;
 	};
 
 	inline bool operator==(const Troop& l, const Troop& r) {
@@ -44,7 +47,8 @@ namespace rpg {
 		&& l.auto_alignment == r.auto_alignment
 		&& l.terrain_set == r.terrain_set
 		&& l.appear_randomly == r.appear_randomly
-		&& l.pages == r.pages;
+		&& l.pages == r.pages
+		&& l.unknown_chunks == r.unknown_chunks;
 	}
 
 	inline bool operator!=(const Troop& l, const Troop& r) {

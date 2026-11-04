@@ -21,6 +21,7 @@
 #include "lcf/rpg/learning.h"
 #include "lcf/rpg/parameters.h"
 #include "lcf/context.h"
+#include "lcf/unknown_chunk.h"
 #include <ostream>
 #include <type_traits>
 
@@ -75,6 +76,8 @@ namespace rpg {
 		DBBitArray easyrpg_unarmed_attribute_set;
 		bool easyrpg_dual_attack = false;
 		bool easyrpg_attack_all = false;
+		/** Chunks liblcf does not know: written back on save. */
+		std::vector<UnknownChunk> unknown_chunks;
 	};
 
 	inline bool operator==(const Actor& l, const Actor& r) {
@@ -119,7 +122,8 @@ namespace rpg {
 		&& l.easyrpg_unarmed_state_chance == r.easyrpg_unarmed_state_chance
 		&& l.easyrpg_unarmed_attribute_set == r.easyrpg_unarmed_attribute_set
 		&& l.easyrpg_dual_attack == r.easyrpg_dual_attack
-		&& l.easyrpg_attack_all == r.easyrpg_attack_all;
+		&& l.easyrpg_attack_all == r.easyrpg_attack_all
+		&& l.unknown_chunks == r.unknown_chunks;
 	}
 
 	inline bool operator!=(const Actor& l, const Actor& r) {

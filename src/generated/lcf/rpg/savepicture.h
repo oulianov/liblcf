@@ -19,6 +19,7 @@
 #include <vector>
 #include "lcf/enum_tags.h"
 #include "lcf/context.h"
+#include "lcf/unknown_chunk.h"
 #include <ostream>
 #include <type_traits>
 
@@ -166,6 +167,8 @@ namespace rpg {
 		double maniac_current_magnify_height = 100.0;
 		std::vector<uint8_t> maniac_image_data;
 		int32_t maniac_finish_magnify_height = 100;
+		/** Chunks liblcf does not know: written back on save. */
+		std::vector<UnknownChunk> unknown_chunks;
 	};
 	inline std::ostream& operator<<(std::ostream& os, SavePicture::Effect code) {
 		os << static_cast<std::underlying_type_t<decltype(code)>>(code);
@@ -242,7 +245,8 @@ namespace rpg {
 		&& l.easyrpg_type == r.easyrpg_type
 		&& l.maniac_current_magnify_height == r.maniac_current_magnify_height
 		&& l.maniac_image_data == r.maniac_image_data
-		&& l.maniac_finish_magnify_height == r.maniac_finish_magnify_height;
+		&& l.maniac_finish_magnify_height == r.maniac_finish_magnify_height
+		&& l.unknown_chunks == r.unknown_chunks;
 	}
 
 	inline bool operator!=(const SavePicture& l, const SavePicture& r) {

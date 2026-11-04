@@ -17,6 +17,7 @@
 #include <stdint.h>
 #include "lcf/enum_tags.h"
 #include "lcf/context.h"
+#include "lcf/unknown_chunk.h"
 #include <ostream>
 #include <type_traits>
 
@@ -69,6 +70,8 @@ namespace rpg {
 		int32_t timer_sec = 0;
 		int32_t timer2_sec = 0;
 		int32_t compare_operator = 1;
+		/** Chunks liblcf does not know: written back on save. */
+		std::vector<UnknownChunk> unknown_chunks;
 	};
 	inline std::ostream& operator<<(std::ostream& os, EventPageCondition::Comparison code) {
 		os << static_cast<std::underlying_type_t<decltype(code)>>(code);
@@ -95,7 +98,8 @@ namespace rpg {
 		&& l.actor_id == r.actor_id
 		&& l.timer_sec == r.timer_sec
 		&& l.timer2_sec == r.timer2_sec
-		&& l.compare_operator == r.compare_operator;
+		&& l.compare_operator == r.compare_operator
+		&& l.unknown_chunks == r.unknown_chunks;
 	}
 
 	inline bool operator!=(const EventPageCondition& l, const EventPageCondition& r) {

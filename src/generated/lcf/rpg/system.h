@@ -21,6 +21,7 @@
 #include "lcf/rpg/sound.h"
 #include "lcf/rpg/testbattler.h"
 #include "lcf/context.h"
+#include "lcf/unknown_chunk.h"
 #include <ostream>
 #include <type_traits>
 
@@ -253,6 +254,8 @@ namespace rpg {
 		bool easyrpg_use_rpg2k_battle_commands = false;
 		int32_t easyrpg_default_actorai = -1;
 		int32_t easyrpg_default_enemyai = -1;
+		/** Chunks liblcf does not know: written back on save. */
+		std::vector<UnknownChunk> unknown_chunks;
 	};
 	inline std::ostream& operator<<(std::ostream& os, System::FadeOut code) {
 		os << static_cast<std::underlying_type_t<decltype(code)>>(code);
@@ -358,7 +361,8 @@ namespace rpg {
 		&& l.easyrpg_battle_use_rpg2ke_strings == r.easyrpg_battle_use_rpg2ke_strings
 		&& l.easyrpg_use_rpg2k_battle_commands == r.easyrpg_use_rpg2k_battle_commands
 		&& l.easyrpg_default_actorai == r.easyrpg_default_actorai
-		&& l.easyrpg_default_enemyai == r.easyrpg_default_enemyai;
+		&& l.easyrpg_default_enemyai == r.easyrpg_default_enemyai
+		&& l.unknown_chunks == r.unknown_chunks;
 	}
 
 	inline bool operator!=(const System& l, const System& r) {

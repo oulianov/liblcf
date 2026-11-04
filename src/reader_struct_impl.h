@@ -89,7 +89,7 @@ void Struct<S>::ReadLcf(S& obj, LcfReader& stream) {
 			}
 		}
 		else {
-			stream.Skip(chunk_info, Struct<S>::name);
+			UnknownChunks::ReadLcf(obj.unknown_chunks, stream, chunk_info, Struct<S>::name);
 		}
 	}
 }
@@ -114,8 +114,14 @@ void Struct<S>::WriteLcf(const S& obj, LcfWriter& stream) {
 
 	auto ref = StructDefault<S>::make(db_is2k3);
 	int last = -1;
+	// The unknown chunks keep their place among the fields: RPG Maker writes
+	// the chunks in ascending order of their IDs
+	auto unknown = obj.unknown_chunks.begin();
 	for (int i = 0; fields[i] != NULL; i++) {
 		const Field<S>* field = fields[i];
+		for (; unknown != obj.unknown_chunks.end() && unknown->ID < field->id; ++unknown) {
+			UnknownChunks::WriteLcf(*unknown, stream);
+		}
 		if (!db_is2k3 && field->is2k3) {
 			continue;
 		}
@@ -133,6 +139,9 @@ void Struct<S>::WriteLcf(const S& obj, LcfWriter& stream) {
 		if (len > 0) {
 			field->WriteLcf(obj, stream);
 		}
+	}
+	for (; unknown != obj.unknown_chunks.end(); ++unknown) {
+		UnknownChunks::WriteLcf(*unknown, stream);
 	}
 	// Writing a 0-byte after rpg::Database or rpg::Save breaks the parser in RPG_RT
 	conditional_zero_writer<S>(stream);
@@ -157,6 +166,7 @@ int Struct<S>::LcfSize(const S& obj, LcfWriter& stream) {
 		result += LcfReader::IntSize(size);
 		result += size;
 	}
+	result += UnknownChunks::LcfSize(obj.unknown_chunks);
 	result += LcfReader::IntSize(0);
 	return result;
 }
@@ -168,6 +178,7 @@ void Struct<S>::WriteXml(const S& obj, XmlWriter& stream) {
 		const Field<S>* field = fields[i];
 		field->WriteXml(obj, stream);
 	}
+	UnknownChunks::WriteXml(obj.unknown_chunks, stream);
 	stream.EndElement(name);
 }
 
@@ -179,6 +190,11 @@ public:
 	}
 
 	void StartElement(XmlReader& stream, const char* name, const char** /* atts */) {
+		if (strcmp(name, UnknownChunks::name) == 0) {
+			field = NULL;
+			UnknownChunks::BeginXml(ref.unknown_chunks, stream);
+			return;
+		}
 		field = Struct<S>::tag_map[name];
 		field->BeginXml(ref, stream);
 	}

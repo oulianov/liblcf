@@ -20,6 +20,7 @@
 #include "lcf/enum_tags.h"
 #include "lcf/rpg/battleranimationitemskill.h"
 #include "lcf/context.h"
+#include "lcf/unknown_chunk.h"
 #include <ostream>
 #include <type_traits>
 
@@ -135,6 +136,8 @@ namespace rpg {
 		int32_t ranged_target = 0;
 		DBString easyrpg_using_message = DBString(kDefaultMessage);
 		int32_t easyrpg_max_count = -1;
+		/** Chunks liblcf does not know: written back on save. */
+		std::vector<UnknownChunk> unknown_chunks;
 	};
 	inline std::ostream& operator<<(std::ostream& os, Item::Type code) {
 		os << static_cast<std::underlying_type_t<decltype(code)>>(code);
@@ -203,7 +206,8 @@ namespace rpg {
 		&& l.ranged_trajectory == r.ranged_trajectory
 		&& l.ranged_target == r.ranged_target
 		&& l.easyrpg_using_message == r.easyrpg_using_message
-		&& l.easyrpg_max_count == r.easyrpg_max_count;
+		&& l.easyrpg_max_count == r.easyrpg_max_count
+		&& l.unknown_chunks == r.unknown_chunks;
 	}
 
 	inline bool operator!=(const Item& l, const Item& r) {

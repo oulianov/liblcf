@@ -19,6 +19,7 @@
 #include "lcf/enum_tags.h"
 #include "lcf/rpg/moveroute.h"
 #include "lcf/context.h"
+#include "lcf/unknown_chunk.h"
 #include <ostream>
 #include <type_traits>
 
@@ -81,6 +82,8 @@ namespace rpg {
 			EasyRpgEventRuntime_Flags() noexcept: reserved_1(false)
 			{}
 		} easyrpg_runtime_flags;
+		/** Chunks liblcf does not know: written back on save. */
+		std::vector<UnknownChunk> unknown_chunks;
 	};
 
 	inline bool operator==(const SaveMapEventBase::EasyRpgEventRuntime_Flags& l, const SaveMapEventBase::EasyRpgEventRuntime_Flags& r) {
@@ -136,7 +139,8 @@ namespace rpg {
 		&& l.easyrpg_move_failure_count == r.easyrpg_move_failure_count
 		&& l.easyrpg_clone_map_id == r.easyrpg_clone_map_id
 		&& l.easyrpg_clone_event_id == r.easyrpg_clone_event_id
-		&& l.easyrpg_runtime_flags == r.easyrpg_runtime_flags;
+		&& l.easyrpg_runtime_flags == r.easyrpg_runtime_flags
+		&& l.unknown_chunks == r.unknown_chunks;
 	}
 
 	inline bool operator!=(const SaveMapEventBase& l, const SaveMapEventBase& r) {

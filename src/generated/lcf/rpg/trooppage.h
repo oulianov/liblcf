@@ -17,6 +17,7 @@
 #include "lcf/rpg/eventcommand.h"
 #include "lcf/rpg/trooppagecondition.h"
 #include "lcf/context.h"
+#include "lcf/unknown_chunk.h"
 #include <ostream>
 #include <type_traits>
 
@@ -30,11 +31,14 @@ namespace rpg {
 		int ID = 0;
 		TroopPageCondition condition;
 		std::vector<EventCommand> event_commands;
+		/** Chunks liblcf does not know: written back on save. */
+		std::vector<UnknownChunk> unknown_chunks;
 	};
 
 	inline bool operator==(const TroopPage& l, const TroopPage& r) {
 		return l.condition == r.condition
-		&& l.event_commands == r.event_commands;
+		&& l.event_commands == r.event_commands
+		&& l.unknown_chunks == r.unknown_chunks;
 	}
 
 	inline bool operator!=(const TroopPage& l, const TroopPage& r) {

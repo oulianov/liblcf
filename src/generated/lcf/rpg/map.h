@@ -19,6 +19,7 @@
 #include "lcf/enum_tags.h"
 #include "lcf/rpg/event.h"
 #include "lcf/context.h"
+#include "lcf/unknown_chunk.h"
 #include <ostream>
 #include <type_traits>
 
@@ -95,6 +96,8 @@ namespace rpg {
 		std::vector<Event> events;
 		int32_t save_count_2k3e = 0;
 		int32_t save_count = 0;
+		/** Chunks liblcf does not know: written back on save. */
+		std::vector<UnknownChunk> unknown_chunks;
 	};
 	inline std::ostream& operator<<(std::ostream& os, Map::ScrollType code) {
 		os << static_cast<std::underlying_type_t<decltype(code)>>(code);
@@ -141,7 +144,8 @@ namespace rpg {
 		&& l.upper_layer == r.upper_layer
 		&& l.events == r.events
 		&& l.save_count_2k3e == r.save_count_2k3e
-		&& l.save_count == r.save_count;
+		&& l.save_count == r.save_count
+		&& l.unknown_chunks == r.unknown_chunks;
 	}
 
 	inline bool operator!=(const Map& l, const Map& r) {

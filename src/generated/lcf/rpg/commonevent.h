@@ -19,6 +19,7 @@
 #include "lcf/enum_tags.h"
 #include "lcf/rpg/eventcommand.h"
 #include "lcf/context.h"
+#include "lcf/unknown_chunk.h"
 #include <ostream>
 #include <type_traits>
 
@@ -50,6 +51,8 @@ namespace rpg {
 		bool switch_flag = false;
 		int32_t switch_id = 1;
 		std::vector<EventCommand> event_commands;
+		/** Chunks liblcf does not know: written back on save. */
+		std::vector<UnknownChunk> unknown_chunks;
 	};
 	inline std::ostream& operator<<(std::ostream& os, CommonEvent::Trigger code) {
 		os << static_cast<std::underlying_type_t<decltype(code)>>(code);
@@ -61,7 +64,8 @@ namespace rpg {
 		&& l.trigger == r.trigger
 		&& l.switch_flag == r.switch_flag
 		&& l.switch_id == r.switch_id
-		&& l.event_commands == r.event_commands;
+		&& l.event_commands == r.event_commands
+		&& l.unknown_chunks == r.unknown_chunks;
 	}
 
 	inline bool operator!=(const CommonEvent& l, const CommonEvent& r) {

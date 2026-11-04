@@ -19,6 +19,7 @@
 #include "lcf/rpg/learning.h"
 #include "lcf/rpg/parameters.h"
 #include "lcf/context.h"
+#include "lcf/unknown_chunk.h"
 #include <ostream>
 #include <type_traits>
 
@@ -44,6 +45,8 @@ namespace rpg {
 		std::vector<uint8_t> state_ranks;
 		std::vector<uint8_t> attribute_ranks;
 		std::vector<int32_t> battle_commands;
+		/** Chunks liblcf does not know: written back on save. */
+		std::vector<UnknownChunk> unknown_chunks;
 	};
 
 	inline bool operator==(const Class& l, const Class& r) {
@@ -60,7 +63,8 @@ namespace rpg {
 		&& l.skills == r.skills
 		&& l.state_ranks == r.state_ranks
 		&& l.attribute_ranks == r.attribute_ranks
-		&& l.battle_commands == r.battle_commands;
+		&& l.battle_commands == r.battle_commands
+		&& l.unknown_chunks == r.unknown_chunks;
 	}
 
 	inline bool operator!=(const Class& l, const Class& r) {

@@ -15,6 +15,7 @@
 // Headers
 #include <stdint.h>
 #include "lcf/context.h"
+#include "lcf/unknown_chunk.h"
 #include <ostream>
 #include <type_traits>
 
@@ -36,6 +37,8 @@ namespace rpg {
 		int32_t tone_blue = 100;
 		int32_t tone_gray = 100;
 		int32_t transparency = 0;
+		/** Chunks liblcf does not know: written back on save. */
+		std::vector<UnknownChunk> unknown_chunks;
 	};
 
 	inline bool operator==(const AnimationCellData& l, const AnimationCellData& r) {
@@ -48,7 +51,8 @@ namespace rpg {
 		&& l.tone_green == r.tone_green
 		&& l.tone_blue == r.tone_blue
 		&& l.tone_gray == r.tone_gray
-		&& l.transparency == r.transparency;
+		&& l.transparency == r.transparency
+		&& l.unknown_chunks == r.unknown_chunks;
 	}
 
 	inline bool operator!=(const AnimationCellData& l, const AnimationCellData& r) {

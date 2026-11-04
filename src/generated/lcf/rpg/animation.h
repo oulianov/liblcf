@@ -19,6 +19,7 @@
 #include "lcf/rpg/animationframe.h"
 #include "lcf/rpg/animationtiming.h"
 #include "lcf/context.h"
+#include "lcf/unknown_chunk.h"
 #include <ostream>
 #include <type_traits>
 
@@ -56,6 +57,8 @@ namespace rpg {
 		int32_t scope = 0;
 		int32_t position = 2;
 		std::vector<AnimationFrame> frames;
+		/** Chunks liblcf does not know: written back on save. */
+		std::vector<UnknownChunk> unknown_chunks;
 	};
 	inline std::ostream& operator<<(std::ostream& os, Animation::Scope code) {
 		os << static_cast<std::underlying_type_t<decltype(code)>>(code);
@@ -73,7 +76,8 @@ namespace rpg {
 		&& l.timings == r.timings
 		&& l.scope == r.scope
 		&& l.position == r.position
-		&& l.frames == r.frames;
+		&& l.frames == r.frames
+		&& l.unknown_chunks == r.unknown_chunks;
 	}
 
 	inline bool operator!=(const Animation& l, const Animation& r) {
