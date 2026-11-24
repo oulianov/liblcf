@@ -8,6 +8,7 @@
  */
 
 #include <cstring>
+#include <memory>
 #include <iostream>
 #include <iomanip>
 #include <type_traits>
@@ -171,16 +172,41 @@ int Struct<S>::LcfSize(const S& obj, LcfWriter& stream) {
 	return result;
 }
 
+/**
+ * The fields liblcf 0.8.1 does not know, which its XML reader cannot skip
+ * (EasyRPG Player 0.8.1.1 crashes on an XML tag it does not know): written
+ * only when they are set. The Maniac Patch's System fields of the title and
+ * save scenes and of the message window.
+ */
+inline bool WrittenToXmlIfSet(const char* struct_name, const char* field_name) {
+	return strcmp(struct_name, "System") == 0 && strncmp(field_name, "maniac_", 7) == 0;
+}
+
 template <class S>
 void Struct<S>::WriteXml(const S& obj, XmlWriter& stream) {
 	IDReader::WriteXmlTag(obj, name, stream);
+	std::unique_ptr<S> ref;
 	for (int i = 0; fields[i] != NULL; i++) {
 		const Field<S>* field = fields[i];
+		if (WrittenToXmlIfSet(name, field->name)) {
+			if (!ref) {
+				ref = std::make_unique<S>(StructDefault<S>::make(stream.Is2k3()));
+			}
+			if (field->IsDefault(obj, *ref, stream.Is2k3())) {
+				continue;
+			}
+		}
 		field->WriteXml(obj, stream);
 	}
 	UnknownChunks::WriteXml(obj.unknown_chunks, stream);
 	stream.EndElement(name);
 }
+
+/** An XML element of no known field, and all it holds: read and dropped */
+class IgnoredXmlHandler : public XmlHandler {
+public:
+	void StartElement(XmlReader& /* stream */, const char* /* name */, const char** /* atts */) {}
+};
 
 template <class S>
 class StructXmlHandler : public XmlHandler {
@@ -195,7 +221,16 @@ public:
 			UnknownChunks::BeginXml(ref.unknown_chunks, stream);
 			return;
 		}
-		field = Struct<S>::tag_map[name];
+		// a field of a newer liblcf: skipped with what it holds (the unknown
+		// tag was a null field, its BeginXml a crash)
+		const auto found = Struct<S>::tag_map.find(name);
+		if (found == Struct<S>::tag_map.end() || found->second == NULL) {
+			Log::Warning("XML: unknown field %s of %s skipped", name, Struct<S>::name);
+			field = NULL;
+			stream.SetHandler(new IgnoredXmlHandler());
+			return;
+		}
+		field = found->second;
 		field->BeginXml(ref, stream);
 	}
 
